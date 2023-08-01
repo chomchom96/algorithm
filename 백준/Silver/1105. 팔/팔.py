@@ -7,14 +7,11 @@ while True:
     if len(N) != len(M):
         print(0)
         break
+    elif N == M:
+        print(N.count('8'))
+        exit()
     else:
-        ans = 0
         for i in range(len(N)):
-            if N == M:
-                print(N.count('8'))
-                exit()
-            if N[i] == M[i]:
-                ans += 1
-            else:
+            if N[i] != M[i]:
                 print(N[:i].count('8'))
                 exit()
