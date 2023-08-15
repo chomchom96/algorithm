@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Main {
     static int node, edge;
+    static int cnt = 1;
     static List<List<Integer>> I = new ArrayList<>();
     static int[] visited;
 
@@ -33,33 +34,20 @@ public class Main {
             Collections.sort(I.get(i));
         }
 
-        dfsStack(start);
+        dfsRecursive(start);
 
         for (int i = 1; i <= node; i++) {
             System.out.println(visited[i]);
         }
     }
 
-    static void dfsStack(int start) {
-        Stack<Integer> stack = new Stack<>();
-        int cnt = 1;
+    static void dfsRecursive(int curNode) {
+        visited[curNode] = cnt++;
 
-        stack.push(start);
-
-        while (!stack.isEmpty()) {
-            int curNode = stack.pop();
-
-            if (visited[curNode] != 0) {
-                continue;
-            }
-
-            visited[curNode] = cnt++;
-
-            for (int i = I.get(curNode).size() - 1; i >= 0; i--) {
-                int nextNode = I.get(curNode).get(i);
-                stack.push(nextNode);
+        for (int nextNode : I.get(curNode)) {
+            if (visited[nextNode] == 0) {
+                dfsRecursive(nextNode);
             }
         }
     }
 }
-
