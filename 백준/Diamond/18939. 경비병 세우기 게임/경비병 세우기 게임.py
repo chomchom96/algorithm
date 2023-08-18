@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 tc = int(input())
 for _ in range(tc):
     n,m,k = map(int, input().split())
