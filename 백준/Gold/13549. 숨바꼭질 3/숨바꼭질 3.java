@@ -1,43 +1,48 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] dx = { -1, 1 };
-
+    static boolean[] visited;
+    static final int limit = 100001;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
         bfs(n, k);
     }
 
-    static void bfs(int start, int destination) {
-        Queue<int[]> q = new LinkedList<>();
-        boolean[] check = new boolean[100_001];
-        q.add(new int[] { start, 0 });
-        check[start] = true;
+    static void bfs(int start, int end) {
+        Queue<int[]> queue = new LinkedList<>();
+        visited = new boolean[limit];
+        queue.add(new int[] {start, 0});
+        visited[start] = true;
 
-        while (!q.isEmpty()) {
-            int[] p = q.poll();
-            int pos = p[0];
-            int move = p[1];
-            if (pos == destination) {
-                System.out.println(move);
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            int num = cur[0];
+            int cnt = cur[1];
+            if (num == end) {
+                System.out.println(cnt);
                 return;
             }
-            int jump = pos * 2;
-            if (jump < 100001 && !check[jump]) {
-                check[jump] = true;
-                q.add(new int[] { jump, move });
+            int tel = num * 2;
+            if (tel < limit && !visited[tel]) {
+                visited[tel] = true;
+                queue.add(new int[] { tel, cnt });
             }
 
             for (int i = 0; i < 2; i++) {
-                int next = pos + dx[i];
-                if (next >= 0 && next < 100001 && !check[next]) {
-                    check[next] = true;
-                    q.add(new int[] { next, move + 1 });
+                int walk = num + 2*i - 1;
+                if (walk >= 0 && walk < limit && !visited[walk]) {
+                    visited[walk] = true;
+                    queue.add(new int[] {walk, cnt + 1});
                 }
             }
         }
