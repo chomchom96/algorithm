@@ -24,7 +24,6 @@ public class Main {
         	l : for (int i = 0; i < 4; i++) {
         		if (minarr.get(i) < num) {
         			minarr.set(i, num);
-        			minarr.sort(Collections.reverseOrder());
         			break l;
         		}
         		else {
