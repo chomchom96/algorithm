@@ -60,43 +60,24 @@ public class Main {
 			for (int j = -rad; j <= rad; j++) {
 				if (i <= j) {
 					if (i * -1 >= j) { // 1번
-						if (i * -1 == j) {
-							cBoard[r+i+1][c+j] = board[r+i][c+j];
-						}
-						else {
-							cBoard[r+i][c+j+1] = board[r+i][c+j];
-						}
+						if (i * -1 == j) cBoard[r+i+1][c+j] = board[r+i][c+j];
+						else cBoard[r+i][c+j+1] = board[r+i][c+j];						
 					}
 					else {
-						if (i == j) {
-							cBoard[r+i][c+j-1] = board[r+i][c+j];
-						}
-						else {
-							cBoard[r+i+1][c+j] = board[r+i][c+j];
-						}
+						if (i == j) cBoard[r+i][c+j-1] = board[r+i][c+j];
+						else cBoard[r+i+1][c+j] = board[r+i][c+j];
 					}
 				}
 				else {
 					if (i >= j * -1) {
-						if (i == j * -1) {
-							cBoard[r+i-1][c+j] = board[r+i][c+j];
-						}
-						else {
-							cBoard[r+i][c+j-1] = board[r+i][c+j];
-						}
+						if (i == j * -1) cBoard[r+i-1][c+j] = board[r+i][c+j];
+						else cBoard[r+i][c+j-1] = board[r+i][c+j];
 					}
-					else {
-						cBoard[r+i-1][c+j] = board[r+i][c+j];
-					}
+					else cBoard[r+i-1][c+j] = board[r+i][c+j];
 				}
 			}
 		}
-		
-//		for (int i = 0 ; i < n; i++) {
-//			for (int j = 0; j < m; j++) System.out.print(cBoard[i][j]);
-//			System.out.println();
-//		}
-//		System.out.println();
+
 		return cBoard;
 	}
 	
@@ -107,13 +88,12 @@ public class Main {
 	}
 	
 	static int calculateMin(int[][] board) {
-		int answer = Integer.MAX_VALUE;
+		int minSum = Integer.MAX_VALUE;
 		for (int i = 0; i < n; i++) {
 			int sum = 0;
 			for(int j = 0; j < m; j++) sum += board[i][j];
-			answer = Math.min(sum, answer);
+			minSum = Math.min(sum, minSum);
 		}
-		
-		return answer;
+		return minSum;
 	}
 }
