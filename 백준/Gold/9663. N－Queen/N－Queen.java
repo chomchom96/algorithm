@@ -4,46 +4,34 @@ import java.io.InputStreamReader;
 
 public class Main {
     static int N;
-    static int[] board;
-    static boolean[] visited;
     static int result;
+    static int upperLimit;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        board = new int[N];
-        visited = new boolean[N];
         result = 0;
+        upperLimit = (1 << N) - 1; // 모든 열을 표현하는 비트
 
-        nqueen(0);
+        nqueen(0, 0, 0, 0);
         System.out.println(result);
     }
 
-    static void nqueen(int depth) {
-        if (depth == N) {
+    static void nqueen(int row, int ld, int rd, int col) {
+        if (row == upperLimit) {
             result++;
             return;
         }
 
-        for (int i = 0; i < N; i++) {
-            if (!visited[i]) {
-                board[depth] = i;
+        int pos = upperLimit & (~(row | ld | rd));
+        while (pos != 0) {
+            int p = pos & -pos; // 가장 오른쪽 1 비트를 찾음
+            pos -= p;
+            int colIdx = Integer.numberOfTrailingZeros(p);
 
-                if (check(depth)) {
-                    visited[i] = true;
-                    nqueen(depth + 1);
-                    visited[i] = false;
-                }
+            if ((col & (1 << colIdx)) == 0) {
+                nqueen(row | p, (ld | p) << 1, (rd | p) >> 1, col | (1 << colIdx));
             }
         }
-    }
-
-    static boolean check(int n) {
-        for (int i = 0; i < n; i++) {
-            if (n - i == Math.abs(board[n] - board[i])) {
-                return false;
-            }
-        }
-        return true;
     }
 }
