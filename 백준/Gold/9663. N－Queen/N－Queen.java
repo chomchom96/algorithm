@@ -40,7 +40,7 @@ public class Main {
 
     static boolean check(int n) {
         for (int i = 0; i < n; i++) {
-            if (board[n] == board[i] || n - i == Math.abs(board[n] - board[i])) {
+            if (n - i == Math.abs(board[n] - board[i])) {
                 return false;
             }
         }
