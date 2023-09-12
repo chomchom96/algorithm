@@ -9,28 +9,28 @@ import java.util.StringTokenizer;
 public class Main {
 	static int[] dr = {1,0,-1,0};
 	static int[] dc = {0,1,0,-1};
-	static long[][] board;
+	static int[][] board;
 	static int n;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
 		n = Integer.parseInt(br.readLine());
 		StringTokenizer st;
-		board = new long[n][n];
+		board = new int[n][n];
 		boolean[][] visited = new boolean[n][n];
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < n; j++) board[i][j] = Long.parseLong(st.nextToken());
+			for (int j = 0; j < n; j++) board[i][j] = Integer.parseInt(st.nextToken());
 		}
 		
-		PriorityQueue<long[]> pq = new PriorityQueue<>((o1, o2) ->(int) (o2[2] - o1[2]));
-		for (int i = 0; i < n; i++) pq.add(new long[] {n-1, i, board[n-1][i]});
+		PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) ->(o2[2] - o1[2]));
+		for (int i = 0; i < n; i++) pq.add(new int[] {n-1, i, board[n-1][i]});
 		int cnt = 0;
 		while (true) {
-			long[] cur = pq.poll();
+			int[] cur = pq.poll();
 			
-			int r = (int) cur[0];
-			int c = (int) cur[1];
+			int r = cur[0];
+			int c = cur[1];
 			long value = cur[2];
 			if (!visited[r][c]) cnt++;
 			visited[r][c] = true;
@@ -45,7 +45,7 @@ public class Main {
 				int nc = c + dc[i];
 				if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
 				if (visited[nr][nc]) continue;
-				pq.add(new long[] {nr, nc, board[nr][nc]});
+				pq.add(new int[] {nr, nc, board[nr][nc]});
 			}
 			
 		}
