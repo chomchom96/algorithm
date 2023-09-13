@@ -24,10 +24,7 @@ public class Main {
 	}
     
 	static void gcd(int a, int b) {
-		if (a % b == 0) gcd = b;
-		else {
-			if (a > b) gcd(b, a % b);
-			else gcd(a, b % a);
-		}
+		if (b == 0) gcd = a;
+		else gcd(b, a % b);
 	}
 }
