@@ -28,6 +28,6 @@ public class Main {
 		    	ans = Math.min(ans, stdev);
 		    }
 	    }
-	    System.out.println(String.format("%.11f", ans));
+	    System.out.println(ans);
 	}
 }
