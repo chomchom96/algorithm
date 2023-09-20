@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT a.book_id, SUBSTR(a.published_date,1,10) as published_date 
+SELECT a.book_id, date_format(a.published_date,"%Y-%m-%d") as published_date  
 from book a 
 where a.category = '인문'
 and published_date like '2021%'
