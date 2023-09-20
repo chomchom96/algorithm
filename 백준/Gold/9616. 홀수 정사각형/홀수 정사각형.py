@@ -1,13 +1,7 @@
-dp = []
-
-for i in range(500000):
-    dp.append(2*i-1)
-
 def find_square(m, n):
     ans = 0
-    len = min(m, n)
-    for i in range(1, len + 1, 2):
-        ans += (m - i + 1) * (n - i + 1) * dp[i//2 + 1]
+    for i in range(1, min(m, n) + 1, 2):
+        ans += (m - i + 1) * (n - i + 1) * i
     print(ans)
 
 while True:
