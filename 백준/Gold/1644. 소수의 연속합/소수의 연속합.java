@@ -1,36 +1,54 @@
 import java.io.BufferedReader;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	
-	static boolean isPrime(int n) {
-		if (n == 1) return false;
-		if (n == 2) return true;
-		for (int i = 2; i * i <= n; i++) if (n % i == 0) return false; 
-		return true;
-	}
-	
-	public static void main(String[] args) throws IOException {
-	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		List<Integer> primeList = new ArrayList<Integer>();
-		for (int i = 2; i < N; i++) if (isPrime(i)) primeList.add(i);
-		int size = primeList.size() - 1;		
-		int left = 0;
-		int right = 0;
+
+	static int MAX = 4000000;
+	static boolean[] array = new boolean[MAX + 1];
+	static int[] prime = new int[283146 + 1];
+	static int cnt;
+
+	static BufferedReader br;
+	static StringTokenizer st;
+	static BufferedWriter bw;
+
+	public static void main(String[] args) throws Exception {
+
+		br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+
+		int ans = 0;
 		int sum = 0;
-		int cnt = 0;
-		while (left < size || right < size) {
-			if(sum == N) {
-				sum -= primeList.get(left++);
-				cnt++;
+
+		calPrime();
+		setPrime();
+
+		int s = 0, e = 0;
+		while (e <= cnt) {
+			if (sum < n) {
+				sum += prime[e++];
+				continue;
 			}
-			else if (sum < N) sum += primeList.get(right++);
-			else sum -= primeList.get(left++);
+
+			if (sum == n) ++ans;
+			sum -= prime[s++];
 		}
-		if (isPrime(N)) cnt++;
-		System.out.println(cnt);
+
+		System.out.println(ans);
+
 	}
 
+	public static void calPrime() {
+		int sqrt = (int) Math.sqrt(MAX);
+		for (int i = 2; i <= sqrt; i++) {
+			if (array[i]) continue;
+			for (int j = i + i; j <= MAX; j += i) array[j] = true;
+		}
+	}
+
+	public static void setPrime() {
+		for (int i = 2; i <= MAX; i++) if (!array[i]) prime[cnt++] = i;
+	}
 }
