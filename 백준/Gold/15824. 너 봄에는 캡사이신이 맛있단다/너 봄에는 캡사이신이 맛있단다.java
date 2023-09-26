@@ -13,20 +13,21 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int n = Integer.parseInt(br.readLine());
-        long[] arr = new long[n];
+        int[] arr = new int[n];
         long[] pows = new long[n];
         pows[0] = 1L;
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-        	arr[i] = Long.parseLong(st.nextToken());
+        	arr[i] = Integer.parseInt(st.nextToken());
         	if (i > 0) pows[i] = (pows[i - 1] * 2) % MOD;
         }
         
         Arrays.sort(arr);
         
         long sum = 0;
-        for (int i = 0; i < n - 1; i++) for (int j = i + 1; j < n; j++) sum += ((arr[j] - arr[i]) * pows[j - i - 1]) % MOD; 
-
+        for (int i = 0; i < n; i++) {
+			sum = (sum + arr[i] * (-pows[n-1-i] + pows[i])) % MOD;
+		}
         System.out.println(sum % MOD); 
     }
 }
