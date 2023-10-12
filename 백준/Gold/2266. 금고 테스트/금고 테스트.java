@@ -1,4 +1,7 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
  
 class Main {
     static int minTrials(int n, int k)
@@ -12,12 +15,12 @@ class Main {
         return m;
     }
  
-    /* Driver code*/
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {	
-    	Scanner sc = new Scanner(System.in);	
-    	int n = sc.nextInt();
-    	int k = sc.nextInt();
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	int n = Integer.parseInt(st.nextToken());
+    	int k = Integer.parseInt(st.nextToken());
         System.out.println(minTrials(k, n));
     }
 }
