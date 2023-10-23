@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -12,6 +13,7 @@ public class Main {
 	static int n;
 	static List<Integer>[] graph;
 	static int[] size;
+	static boolean[] visited;
 	
     public static void main(String[] args) throws IOException {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +24,7 @@ public class Main {
     	int q = Integer.parseInt(st.nextToken());
     	
     	graph = new ArrayList[n+1];
+    	visited = new boolean[n+1];
     	for (int i = 0; i <= n; i++) graph[i] = new ArrayList<>();
     	for (int i = 0; i < n - 1; i++) {
     		st = new StringTokenizer(br.readLine());
@@ -30,21 +33,16 @@ public class Main {
     		graph[s].add(e); graph[e].add(s);
     	}
     	size = new int[n+1];
-    	dfs(r, 0);
-    	
-//    	System.out.println(Arrays.toString(size));
-    	
+    	dfs(r);
+    	    	
     	while (q --> 0) System.out.println(size[Integer.parseInt(br.readLine())]);
 
 	}
 
-	private static void dfs(int child, int parent) {
-		size[child] = 1;
-		for (int next : graph[child]) {
-			if (next == parent) continue;
-			dfs(next, child);
-			size[child] += size[next];
-		}
-		
+	private static int dfs(int node) {
+		visited[node] = true;
+		size[node] = 1;
+		for (int next : graph[node]) if (!visited[next]) size[node] += dfs(next);
+		return size[node];
 	}
 }
