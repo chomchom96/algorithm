@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -8,37 +6,14 @@ public class Main {
 		int l = sc.nextInt(); // 1~50
 		long m = 1234567891;
 		String str = sc.next();
-		Map<Character, Integer> map = new HashMap<>();
-		map.put('a', 1);
-		map.put('b', 2);
-		map.put('c', 3);
-		map.put('d', 4);
-		map.put('e', 5);
-		map.put('f', 6);
-		map.put('g', 7);
-		map.put('h', 8);
-		map.put('i', 9);
-		map.put('j', 10);
-		map.put('k', 11);
-		map.put('l', 12);
-		map.put('m', 13);
-		map.put('n', 14);
-		map.put('o', 15);
-		map.put('p', 16);
-		map.put('q', 17);
-		map.put('r', 18);
-		map.put('s', 19);
-		map.put('t', 20);
-		map.put('u', 21);
-		map.put('v', 22);
-		map.put('w', 23);
-		map.put('x', 24);
-		map.put('y', 25);
-		map.put('z', 26);
+		
 		char[] word = str.toCharArray(); // a~z
 		long ans = 0;
+		long[] pow = new long[l];
+		pow[0] = 1L;
+		for (int i = 1; i < l; i++) pow[i] = (long) (pow[i-1] * 31) % m;
 		for (int i = 0; i < l; i++) {
-			ans = (ans + map.get(word[i]) * (long)(Math.pow(31, i))) % m;
+			ans = (ans % m + ((word[i] - 'a' + 1) * pow[i]) % m ) % m;
 		}
 		System.out.println(ans % m);
 	}
