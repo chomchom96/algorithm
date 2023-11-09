@@ -42,14 +42,15 @@ public class Main {
 				System.out.println(cnt);
 				return;
 			}
-			if (visited[num]) continue;
-			visited[num] = true;
+			
 			String nStr = String.valueOf(num);
 			for (int i = 0; i < 4; i++) {
 				for (int digit = 0; digit < 10; digit++) {
 					if (i == 0 && digit == 0) continue;
 					 int next = num - (nStr.charAt(i) - '0') * (int) Math.pow(10, 3 - i) + digit * (int) Math.pow(10, 3 - i);
-					 if (!isNotPrime[next] && !visited[next]) queue.offer(new int[] {next, cnt+1});
+					 if (!isNotPrime[next] && !visited[next]) {
+						 visited[next] = true; queue.offer(new int[] {next, cnt+1});
+					 }
 				}
 			}
 		}
