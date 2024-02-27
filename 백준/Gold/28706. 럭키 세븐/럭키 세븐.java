@@ -1,42 +1,45 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static Set<Integer> set, nextSet;
+    static boolean[][] dp;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int TC = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
         while (TC --> 0) {
-            set = new HashSet<>();
-            set.add(1);
-            nextSet = new HashSet<>();
             int N = Integer.parseInt(br.readLine());
-            while (N --> 0) {
+            dp = new boolean[N+1][7];
+            dp[0][1] = true;
+            for (int i = 0; i < N; i++) {
                 st = new StringTokenizer(br.readLine());
                 String op1 = st.nextToken();
                 int num1 = Integer.parseInt(st.nextToken());
-                operate(op1, num1);
+                operate(op1, num1, i);
                 String op2 = st.nextToken();
                 int num2 = Integer.parseInt(st.nextToken());
-                operate(op2, num2);
-                set.clear();
-                for (int n : nextSet) set.add(n);
-                nextSet.clear();
+                operate(op2, num2, i);
             }
-            System.out.println(set.contains(0)? "LUCKY" : "UNLUCKY");
+            sb.append(dp[N][0]? "LUCKY": "UNLUCKY");
+            sb.append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    private static void operate(String op, int num, int i) {
+        boolean isAdd = false;
+        if (op.equals("+")) isAdd = true;
+        for (int j = 0; j < 7; j++) if (dp[i][j]) {
+            if (isAdd) dp[i + 1][(j + num) % 7] = true;
+            else dp[i + 1][(j * num) % 7] = true;
         }
     }
 
-    private static void operate(String op, int num) {
-        if (op.equals("+")) for (int s :set) nextSet.add((s+num)%7);
-        else for (int s : set) nextSet.add((s*num)%7);
-    }
 
 }
