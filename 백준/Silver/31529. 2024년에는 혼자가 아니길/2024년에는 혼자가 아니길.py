@@ -1,8 +1,8 @@
-from math import sqrt
+x,y = map(int, input().split())
 
-y,x = map(int, input().split())
-
-if (x > 2*y):
+if (x > y):
+    print(-1)
+elif (y > 2*x):
     print(-1)
 else:
-    print(int(((2*y-x)/4) * 2024))
+    print(int(((2*x-y)/4) * 2024))
