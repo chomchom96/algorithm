@@ -31,15 +31,13 @@ public class Main {
         for (int i = 0; i < Math.min(S, goodNums.size()); i++) {
             System.out.print(goodNums.get(i).second + " ");
             printed.add(goodNums.get(i).second);
-            printedCount++;
         }
         long num = 0;
-        while (printedCount < S) {
+        while (printed.size() < S) {
             num++;
             if (!printed.contains(num)) {
                 System.out.print(num + " ");
                 printed.add(num);
-                printedCount++;
             }
         }
     }
